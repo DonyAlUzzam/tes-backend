@@ -1,12 +1,15 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path')
 
 const feedRoutes = require('./src/routes/feed');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json()); //Application/json
-
+// app.use(express.static('public'));
+app.use('/static', express.static(path.join(__dirname, 'public')))
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE');

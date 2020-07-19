@@ -8,7 +8,21 @@ module.exports = (sequelize, Sequelize) => {
       },
       author: {
         type: Sequelize.STRING
-      }
+      },
+      price: {
+        type: Sequelize.INTEGER
+      },
+      qty: {
+        type: Sequelize.INTEGER
+      },
+      image: {
+        type: Sequelize.STRING,
+        //Set custom getter for book image using URL
+        get(){
+            const image = this.getDataValue('image');
+            return "/img/"+image;
+        }
+    },
     });
   
     return Book;

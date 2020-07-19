@@ -1,11 +1,13 @@
 const db = require("../models");
 const Book = db.books;
 const Op = db.Sequelize.Op;
+const multer = require("multer");
 
 
 // Create and Save a new Tutorial
 exports.create = (req, res) => {
-   // Validate request
+  console.log(req.file,"re")
+  //  Validate request
    if (!req.body.title) {
     res.status(400).send({
       message: "Content can not be empty!"
@@ -17,9 +19,11 @@ exports.create = (req, res) => {
   const book = {
     title: req.body.title,
     description: req.body.description,
-    author: req.body.author ? req.body.author : false
+    author: req.body.author ? req.body.author : false,
+    price: req.body.price,
+    qty: req.body.qty,
+    image: req.file.filename
   };
-  console.log(book)
 
   // Save Book in the database
   Book.create(book)
